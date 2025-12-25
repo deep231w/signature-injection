@@ -1,0 +1,246 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.app{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.pdf-section{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0f2a54;
+  overflow: auto;
+}
+
+.signature-section{
+  width: 30%;
+  height: 100%;
+  border-left: 1px solid #000000;
+  padding: 20px;
+}
+
+.pdf-upload-section{
+  border: 2px dashed #ffffff;
+  border-radius: 30px;
+  padding: 100px;
+  text-align: center;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: large;
+  font-weight: 500;
+  font-family: monospace;
+}
+
+.pdf-upload-section:hover {
+  background: #170e5d;
+}
+
+.pdf-container {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  background: #4e5157;
+}
+
+.pdf-page-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pdf-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* signature section */
+
+.signature-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-sec{
+  padding-top: 10%;
+}
+.signature-heading{
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: larger;
+}
+
+.button-sec{
+  display: flex;
+  gap: 10px;
+}
+
+.button-sec button{
+  padding: 10px;
+  cursor: pointer;
+   
+}
+.signature-btn{
+  border-radius: 5px; 
+  background-color: #140d4d;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+.signature-btn:hover{
+  background-color: #4c4586;
+}
+.submit-btn{
+  border-radius: 5px; 
+  background-color: #1f590b;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+.submit-btn:hover{
+  background-color: #50af30;
+}
+
+
+/* signature modal */
+.signature-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.signature-modal {
+  width: 60%;
+  height: 40%;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔝 top buttons */
+.signature-modal-header {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 🧠 middle content */
+.signature-modal-body {
+  flex: 1; /* takes remaining space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #ccc;
+  margin: 20px 0;
+}
+
+/* 🔻 bottom buttons */
+.signature-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.signature-modal-header button{
+  border: #0f2a54;
+  background-color: #50af30;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+.signature-modal-footer button{
+  padding: 4px;
+  border-radius: 5px;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+.close-btn{
+  background-color: rgb(191, 15, 15);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.add-btn{
+  background-color: rgb(10, 30, 144);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+/* Signature Type  */
+.text-signature input{
+  padding: 15px;
+  border-radius: 8px;
+  border-color: #000000;
+
+}
