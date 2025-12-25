@@ -1,7 +1,7 @@
 import { Rnd } from "react-rnd";
 import { useEffect, useState } from "react";
 
-export function SignatureBox({ pageRef, addedSignature }) {
+export function SignatureBox({ pageRef, addedSignature, onChange }) {
   const [box, setBox] = useState({
     xPercent: 0.2,
     yPercent: 0.3,
@@ -44,25 +44,44 @@ export function SignatureBox({ pageRef, addedSignature }) {
       position={{ x: xPx, y: yPx }}
 
       onDragStop={(e, d) => {
+        const xPercent= d.x / pageSize.width
+        const yPercent= d.y / pageSize.height
         setBox(prev => ({
           ...prev,
-          xPercent: d.x / pageSize.width,
-          yPercent: d.y / pageSize.height,
+          xPercent,
+          yPercent,
         }));
+        onChange({
+          xPercent,
+          yPercent
+        })
       }}
 
       onResizeStop={(e, dir, ref, delta, position) => {
         const newWidthPx = ref.offsetWidth;
         const newHeightPx = ref.offsetHeight;
+        const xPercent= position.x / pageSize.width
+        const yPercent=position.y / pageSize.height
+        const widthPercent=newWidthPx / pageSize.width
+        const heightPercent=newHeightPx / pageSize.height
+        const fontSizePercent=(newHeightPx * 0.6) / pageSize.height
 
         setBox(prev => ({
           ...prev,
-          xPercent: position.x / pageSize.width,
-          yPercent: position.y / pageSize.height,
-          widthPercent: newWidthPx / pageSize.width,
-          heightPercent: newHeightPx / pageSize.height,
-          fontSizePercent: (newHeightPx * 0.6) / pageSize.height,
+          xPercent,
+          yPercent,
+          widthPercent,
+          heightPercent,
+          fontSizePercent,
         }));
+
+        onChange({
+          xPercent,
+          yPercent,
+          widthPercent,
+          heightPercent,
+          fontSizePercent,
+        });
       }}
 
       style={{

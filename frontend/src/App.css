@@ -89,7 +89,7 @@ html, body, #root {
 
 .pdf-container {
   height: 100%;
-  width: 100%;
+  width: auto;
   overflow-y: auto;
   background: #4e5157;
 }
@@ -184,14 +184,12 @@ html, body, #root {
   flex-direction: column;
 }
 
-/* 🔝 top buttons */
 .signature-modal-header {
   display: flex;
   justify-content: center;
   gap: 12px;
 }
 
-/* 🧠 middle content */
 .signature-modal-body {
   flex: 1; /* takes remaining space */
   display: flex;
@@ -201,7 +199,6 @@ html, body, #root {
   margin: 20px 0;
 }
 
-/* 🔻 bottom buttons */
 .signature-modal-footer {
   display: flex;
   justify-content: flex-end;

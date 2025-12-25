@@ -96,7 +96,7 @@ function App() {
             Add signature
           </button>
 
-          <button className='submit-btn'>SUBMIT</button>
+          <button onClick={onSubmit} className='submit-btn'>SUBMIT</button>
         </div>
       </div>
     </div>

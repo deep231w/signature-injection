@@ -40,6 +40,9 @@ export function PDFcontainer({ pdfFile ,isSignatureModalOpen, onCloseSignatureMo
   return () => observer.disconnect();
 }, [numPages]);
 
+useEffect(()=>{
+  console.log("signatures / cords- ",signatures);
+},[signatures]);
 
   return (
     <div className="pdf-container">
@@ -71,6 +74,13 @@ export function PDFcontainer({ pdfFile ,isSignatureModalOpen, onCloseSignatureMo
                     key={sig.id}
                     addedSignature={sig.text}
                     pageRef={{current:pageRefs.current[i]}}
+                    onChange={(coords)=>{
+                      setSignatures(prev=>
+                        prev.map(s=>
+                          s.id ==sig.id ? {...s , ...coords} :s
+                        )
+                      )
+                    }}
                   />
                 ))}
           </div>
