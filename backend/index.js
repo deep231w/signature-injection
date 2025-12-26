@@ -3,6 +3,11 @@ const cors= require("cors");
 const fs= require('fs');
 const {PDFDocument, rgb, StandardFonts} =require('pdf-lib');
 const shahash = require('./utils/hashBuffer.js');
+const PdfSchema = require('./models/Pdf-schema.js');
+
+require('dotenv').config();
+require('./db/db.js');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -62,8 +67,16 @@ app.post("/sign-pdf", async(req,res)=>{
 
     fs.writeFileSync(`./signed/signed-${pdfId}`, signedPdfBytes);
 
+    const newSignedPdf =await PdfSchema.create({
+      pdfId,
+      originalHash,
+      signedHash,
+      signatures
+    })
+
     res.status(200).json({
-      url:`/signed/signed-${pdfId}`
+      url:`/signed/signed-${pdfId}`,
+      newSignedPdf:newSignedPdf
     })
     console.log("signed pdf url- ", `/signed/signed-${pdfId}`);
 
