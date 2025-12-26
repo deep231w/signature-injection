@@ -24,7 +24,6 @@ function App() {
   const [signatures, setSignatures] = useState([]);
 
 
-  //api call
   const onSubmit= async()=>{
     console.log("data for payload is - ",signatures )
 
@@ -42,10 +41,8 @@ function App() {
     };
 
     console.log("final payload- ", payload);
-    
-    const response= await axios.post(`${meta.env.VITE_REACT_BACKEND_URL}/sign-pdf`,{
-      payload
-    })
+
+    const response= await axios.post(`${import.meta.env.VITE_REACT_BACKEND_URL}/sign-pdf`,payload)
 
 
     console.log("response of sign-pdf- ", response)

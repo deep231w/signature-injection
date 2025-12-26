@@ -97,7 +97,7 @@ html, body, #root {
 .pdf-page-wrapper {
   position: relative;
   overflow: hidden;
-  margin: 24px 0;
+  /* margin: 24px 0; */
   display: flex;
   justify-content: center;
 }
