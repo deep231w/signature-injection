@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { SignatureBox } from "./SignatureBox";
 import { SignatureModal } from "./SignatureModal";
 
-export function PDFcontainer({ pdfFile ,isSignatureModalOpen, onCloseSignatureModal}) {
+export function PDFcontainer({ pdfFile ,isSignatureModalOpen, onCloseSignatureModal ,setSignaturesForApi}) {
 
   const [numPages, setNumPages] = useState(null);
   const [scale, setScale] = useState(1);
@@ -42,6 +42,7 @@ export function PDFcontainer({ pdfFile ,isSignatureModalOpen, onCloseSignatureMo
 
 useEffect(()=>{
   console.log("signatures / cords- ",signatures);
+  setSignaturesForApi(signatures)
 },[signatures]);
 
   return (

@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { useRef } from 'react';
 import { PDFcontainer } from './components/PDFcontainer';
+import axios from 'axios';
 
 import { pdfjs } from 'react-pdf';
 
@@ -20,6 +21,35 @@ function App() {
   const [isPdfAdded, setIsPdfAdded]=useState(false);
   const [signaturModaleOpen, setSignatureModalOpen]=useState(false);
 
+  const [signatures, setSignatures] = useState([]);
+
+
+  //api call
+  const onSubmit= async()=>{
+    console.log("data for payload is - ",signatures )
+
+    const payload= {
+      pdfId:pdf.name,
+      signatures:signatures.map(sig=>({
+        page: sig.page,
+        text: sig.text,
+        xPercent: sig.xPercent,
+        yPercent: sig.yPercent,
+        widthPercent: sig.widthPercent,
+        heightPercent: sig.heightPercent,
+        fontSizePercent: sig.fontSizePercent,
+      }))
+    };
+
+    console.log("final payload- ", payload);
+    
+    const response= await axios.post(`${meta.env.VITE_REACT_BACKEND_URL}/sign-pdf`,{
+      payload
+    })
+
+
+    console.log("response of sign-pdf- ", response)
+  }
 
   const handleclick= ()=>{
     fileInputRef.current?.click();
@@ -80,6 +110,7 @@ function App() {
             isSignatureModalOpen={signaturModaleOpen} 
             onCloseSignatureModal={()=>setSignatureModalOpen(false)} 
             pdfFile={pdf}
+            setSignaturesForApi={setSignatures}
           />
         }
       </div>
