@@ -100,7 +100,6 @@ export function SignatureBox({ pageRef, addedSignature, onChange }) {
           alignItems: "center",
           justifyContent: "center",
           fontSize: `${fontSizePx}px`,
-          fontFamily: "cursive",
           whiteSpace: "nowrap",
           pointerEvents: "none",
         }}

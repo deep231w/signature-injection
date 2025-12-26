@@ -1,7 +1,8 @@
 const express = require('express');
 const cors= require("cors");
 const fs= require('fs');
-const {PDFDocument, rgb, StandardFonts} =require('pdf-lib')
+const {PDFDocument, rgb, StandardFonts} =require('pdf-lib');
+const shahash = require('./utils/hashBuffer.js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -22,6 +23,10 @@ app.post("/sign-pdf", async(req,res)=>{
   try{
     const {pdfId , signatures}=req.body;
     const pdfBytes= fs.readFileSync(`./pdfs/${pdfId}`);
+    const originalHash= shahash(pdfBytes);
+    console.log('sha256 type:', typeof shahash);
+
+
     const pdfDoc= await PDFDocument.load(pdfBytes);
 
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -52,6 +57,9 @@ app.post("/sign-pdf", async(req,res)=>{
     });
 
     const signedPdfBytes = await pdfDoc.save();
+    const signedHash= shahash(signedPdfBytes);
+    console.log("original pdf hash , signedhash- ", originalHash, signedHash);
+
     fs.writeFileSync(`./signed/signed-${pdfId}`, signedPdfBytes);
 
     res.status(200).json({
