@@ -4,6 +4,7 @@ const fs= require('fs');
 const {PDFDocument, rgb, StandardFonts} =require('pdf-lib');
 const shahash = require('./utils/hashBuffer.js');
 const PdfSchema = require('./models/Pdf-schema.js');
+const path=require('path');
 
 require('dotenv').config();
 require('./db/db.js');
@@ -19,10 +20,11 @@ app.use(cors({
 
 app.use(express.json());
 
-
 app.get('/', (req, res) => {
   res.send('<h1>Hello world</h1>');
 });
+
+app.use("/signed", express.static(path.join(__dirname, "signed")));
 
 app.post("/sign-pdf", async(req,res)=>{
   try{
@@ -31,6 +33,8 @@ app.post("/sign-pdf", async(req,res)=>{
     const originalHash= shahash(pdfBytes);
     console.log('sha256 type:', typeof shahash);
 
+    const safePdfName = pdfId.replace(/\s+/g, "_");
+    const signedFileName = `signed-${safePdfName}`;
 
     const pdfDoc= await PDFDocument.load(pdfBytes);
 
@@ -65,7 +69,7 @@ app.post("/sign-pdf", async(req,res)=>{
     const signedHash= shahash(signedPdfBytes);
     console.log("original pdf hash , signedhash- ", originalHash, signedHash);
 
-    fs.writeFileSync(`./signed/signed-${pdfId}`, signedPdfBytes);
+    fs.writeFileSync(`./signed/signed-${signedFileName}`, signedPdfBytes);
 
     const newSignedPdf =await PdfSchema.create({
       pdfId,
@@ -75,7 +79,7 @@ app.post("/sign-pdf", async(req,res)=>{
     })
 
     res.status(200).json({
-      url:`/signed/signed-${pdfId}`,
+      url:`/signed/signed-${signedFileName}`,
       newSignedPdf:newSignedPdf
     })
     console.log("signed pdf url- ", `/signed/signed-${pdfId}`);
